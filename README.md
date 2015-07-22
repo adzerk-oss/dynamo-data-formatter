@@ -5,8 +5,31 @@ If you're exporting your data from another existing Dynamo table, then it's alre
 
 ## Usage
 
-*TODO*
+Here is an example of a [Boot](http://www.boot-clj.com) script one could write in order to read some data from an Excel spreadsheet using [docjure](https://github.com/mjul/docjure) and then format it as Dynamo data.
 
+```clj
+#!/usr/bin/env boot
+
+(set-env! :dependencies
+  '[[dk.ative/docjure      "1.8.0"]
+    [dynamo-data-formatter "0.1.0"]])
+
+(require '[dk.ative.docjure.spreadsheet :refer :all]
+         '[dynamo-data-formatter.core   :refer (format-rows)])
+
+(defn records [filename]
+  (->> (load-workbook filename)
+       (select-sheet "Sheet1")
+       (select-columns {:A "UserKey" :B "NetworkId" :C "Impressions"})
+       rest)) ; discards the title row
+
+(defn -main [filename]
+  (println "Converting spreadsheet data...")
+  (let [formatted (format-rows (records filename))
+        out-file  (str filename ".out")]
+    (spit out-file formatted)
+    (println "Formatted file written to" (str out-file \.))))
+```
 ## TODO
 
 (PRs warmly welcomed.)
