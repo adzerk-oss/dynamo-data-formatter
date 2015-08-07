@@ -32,9 +32,11 @@
         ETX (char 3)
         LF  (char 10)
         fields (map (fn [[column value]]
-                      (str column ETX (cond 
-                                        (string? value) (dynamo-string value)
-                                        (number? value) (dynamo-number value))))
+                      (str (name column) 
+                           ETX 
+                           (cond 
+                             (string? value) (dynamo-string value)
+                             (number? value) (dynamo-number value))))
                     row)]
     (str (str/join STX fields) LF)))
 
