@@ -14,7 +14,7 @@ Here is an example of a [Boot](http://www.boot-clj.com) script one could write i
 
 (set-env! :dependencies
   '[[dk.ative/docjure      "1.8.0"]
-    [dynamo-data-formatter "0.1.0"]])
+    [dynamo-data-formatter "0.1.1"]])
 
 (require '[dk.ative.docjure.spreadsheet :refer :all]
          '[dynamo-data-formatter.core   :refer (format-rows)])
