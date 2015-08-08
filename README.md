@@ -37,6 +37,7 @@ Here is an example of a [Boot](http://www.boot-clj.com) script one could write i
 (PRs warmly welcomed.)
 
 * Support more Dynamo value types. Currently only number and string fields are supported. 
+* Add optional validation that there are no duplicate keys, as AWS will choke on the file if this is the case. Should throw an exception in this scenario. (The user will need to specify which fields are the keys.)
 
 ## License
 
